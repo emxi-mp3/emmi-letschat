@@ -11,7 +11,7 @@ users = {}
 # ---------------- FAKE USER DATABASE (replace later with real DB) ----------------
 fake_users = {
     "angxl": "1234",
-    "admin": "admin"
+    "admin": "admin",
     "jamal": "papajamal"
 }
 
