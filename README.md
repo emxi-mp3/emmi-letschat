@@ -5,8 +5,6 @@ A real-time chat app built with Python, Flask, and Socket.IO — running on a Ra
 
 ---
 
-## 🚀 What this is
-
 This is a learning project where I built:
 
 * 🔐 Login system (basic authentication)
