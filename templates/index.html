@@ -30,9 +30,8 @@
 
 <h2>Live Chat</h2>
 
-<!-- Username setup -->
-<input id="username" placeholder="Enter username" />
-<button onclick="setUsername()">Join</button>
+<!-- From Flask login system -->
+<p>Logged in as: {{ user }}</p>
 
 <hr>
 
@@ -45,14 +44,10 @@
     const socket = io();
     const chat = document.getElementById("chat");
 
-    let usernameSet = false;
-
     // -----------------------------
-    // STEP 4: LOAD CHAT HISTORY
+    // LOAD CHAT HISTORY (FROM FLASK)
     // -----------------------------
-    // This comes from Flask (server-side rendered variable)
     const history = {{ history|tojson }};
-
     history.forEach(msg => {
         const div = document.createElement("div");
         div.textContent = msg;
@@ -60,19 +55,7 @@
     });
 
     // -----------------------------
-    // USERNAME SETUP
-    // -----------------------------
-    function setUsername() {
-        const name = document.getElementById("username").value;
-
-        if (name.trim() === "") return;
-
-        socket.emit("set_username", name);
-        usernameSet = true;
-    }
-
-    // -----------------------------
-    // RECEIVE MESSAGES (LIVE)
+    // RECEIVE LIVE MESSAGES
     // -----------------------------
     socket.on("message", function(msg) {
         const div = document.createElement("div");
@@ -84,12 +67,10 @@
     // SEND MESSAGE
     // -----------------------------
     function sendMessage() {
-        if (!usernameSet) {
-            alert("Set a username first!");
-            return;
-        }
-
         const input = document.getElementById("msg");
+
+        if (input.value.trim() === "") return;
+
         socket.send(input.value);
         input.value = "";
     }
